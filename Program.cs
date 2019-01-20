@@ -6,7 +6,7 @@ namespace ConsoleApp7
 {
     class Program
     {
-        
+
         struct Pos
         {
             public int a;
@@ -110,13 +110,13 @@ namespace ConsoleApp7
         {
             int lengthNewArray = 0;
             Console.WriteLine("SortSticksLength()\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-            for (int i = 0,num = 0; i < length; i++)
+            for (int i = 0, num = 0; i < length; i++)
             {
                 for (int j = 0; j < length; j++)
                 {
                     for (int k = 0; k < length; k++, num++)
                     {
-                        if(sticks[num].stickOne.a > sticks[num].stickOne.b)
+                        if (sticks[num].stickOne.a > sticks[num].stickOne.b)
                         {
                             //если занята только первая позиция, а остальные пусты
                             if (sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
@@ -131,7 +131,7 @@ namespace ConsoleApp7
 
                                 lengthNewArray++;
                             }//если правильно расположены все ячейки
-                            else if(sticks[num].stickOne.b > sticks[num].stickOne.c)
+                            else if (sticks[num].stickOne.b > sticks[num].stickOne.c)
                             {
                                 Console.Write("Sticks[" + (num) + "]\n{\n");
                                 Console.Write("stickOne:abc = " + sticks[num].stickOne.a + sticks[num].stickOne.b + sticks[num].stickOne.c + "\n");
@@ -303,7 +303,7 @@ namespace ConsoleApp7
         static void Main(string[] args)
         {
             int numDisk = 4;
-                int a, b, c;
+            int a, b, c;
             int length;
             Sticks[] sticks = new Sticks[(int)Math.Pow(numDisk, numDisk)];
             sticks = InitSticks(sticks, numDisk);
@@ -319,148 +319,8 @@ namespace ConsoleApp7
             Console.WriteLine("length = " + length);
             Console.ReadKey();
         }
-            /* static void Main(string[] args)
-             {
-                 int numDisk = 3;
-                 Sticks[] sticks = new Sticks[(int)Math.Pow(numDisk, numDisk)];
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
 
-                         }
-                     }
-                 }
-                             Pos[] arr = new Pos[(int)Math.Pow(numDisk, numDisk)];
-                 Pos[] arrStick = new Pos[3];
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     int lenght = 0;
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                             arr[i + j + k].a = i;
-                             arr[i + j + k].b = j;
-                             arr[i + j + k].c = k;
-
-                             lenght++;
-                         }
-                         Console.Write("/////////////////////////////////\n");
-                     }
-                     Console.Write("Lenght = " + lenght + "\n\n");
-                 }
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                             Console.Write("i =  " + i + ")" + arr[i + j + k].a + "," + arr[i + j + k].b + "," + arr[i + j + k].c + "\n");
-                         }
-                         Console.Write("/////////////////////////////////\n");
-                     }
-                 }
-                 int lenghtTrueArr = 0;
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                             if ((arr[i + j + k].a != arr[i + j + k].b) & (arr[i + j + k].a != arr[i + j + k].c) & (arr[i + j + k].c != arr[i + j + k].b))
-                             {
-                                 lenghtTrueArr++;
-                             }
-                         }
-                     }
-                 }
-                 Pos[] arrTrue = new Pos[lenghtTrueArr];
-                 lenghtTrueArr = 0;
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                             if ((i != j) & (i != k) & (j != k))
-                             {
-                                 arrTrue[lenghtTrueArr].a = i;
-                                 arrTrue[lenghtTrueArr].b = j;
-                                 arrTrue[lenghtTrueArr].c = k;
-                                 lenghtTrueArr++;
-                             }
-                         }
-                     }
-                 }
-
-                 Console.WriteLine("\nTRUE\n");
-                 for (int i = 0; i < lenghtTrueArr; i++)
-                 {
-                     Console.Write("i =  " + i + ")" + arrTrue[i].a + "," + arrTrue[i].b + "," + arrTrue[i].c + "\n");
-                 }
-                 lenghtTrueArr = 0;
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                             if ((i != j) & (i != k) & (j != k))
-                             {
-                                 if (i > j & j > k)
-                                 {
-                                     arrTrue[lenghtTrueArr].a = i;
-                                     arrTrue[lenghtTrueArr].b = j;
-                                     arrTrue[lenghtTrueArr].c = k;
-                                     lenghtTrueArr++;
-                                 }
-                             }
-                         }
-                     }
-                 }
-                 arrTrue = new Pos[lenghtTrueArr];
-                 lenghtTrueArr = 0;
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                             if ((i != j) & (i != k) & (j != k))
-                             {
-                                 if (i > j & j > k)
-                                 {
-                                     arrTrue[lenghtTrueArr].a = i;
-                                     arrTrue[lenghtTrueArr].b = j;
-                                     arrTrue[lenghtTrueArr].c = k;
-                                     lenghtTrueArr++;
-                                 }
-                             }
-                         }
-                     }
-                 }
-                 Console.WriteLine("\n ROOT \n");
-                 for (int i = 0; i < lenghtTrueArr; i++)
-                 {
-                     Console.Write("i =  " + i + ")" + arrTrue[i].a + "," + arrTrue[i].b + "," + arrTrue[i].c + "\n");
-                 }
-
-                 for (int i = 0; i < numDisk; i++)
-                 {
-                     for (int j = 0; j < numDisk; j++)
-                     {
-                         for (int k = 0; k < numDisk; k++)
-                         {
-                         }
-                     }
-                 }
-                 Console.ReadKey();
-             }
-             */
-            static bool CheckPermutation(Pos from, Pos to)
+        static bool CheckPermutation(Pos from, Pos to)
         {
             char fromInPos;
             char toInPos;
@@ -499,7 +359,7 @@ namespace ConsoleApp7
                 toInPos = '0';
             }
 
-            if(fromInPos < toInPos)
+            if (fromInPos < toInPos)
             {
                 return true;
             }
@@ -515,10 +375,10 @@ namespace ConsoleApp7
             switch (from)
             {
                 case 0:
-                    switch(to)
+                    switch (to)
                     {
                         case 1:
-                            return CheckPermutation(sticks.stickOne,sticks.stickTwo);
+                            return CheckPermutation(sticks.stickOne, sticks.stickTwo);
                         case 2:
                             return CheckPermutation(sticks.stickOne, sticks.stickThree);
                         default:
@@ -548,6 +408,69 @@ namespace ConsoleApp7
                     return false;
             }
         }
-
+        static Sticks DeleteDisk(Sticks sticksResult,  int from)
+        {
+            switch (from)
+            {
+                case 0:
+                    switch(sticksResult.stickOne.lenght)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                    }
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+            return sticksResult;
+        }
+        static Sticks PermutationSticks(Sticks sticksResult, Sticks[] sticksTrue, int from, int to)
+        {
+            switch (from)
+            {
+                case 0:
+                    switch (to)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (to)
+                    {
+                        case 0:
+                            break;
+                        case 2:
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (to)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                    }
+                    break;
+            }
+            return sticksResult;
+        }
+        static Sticks PermutationSticksResult(Sticks sticksResult, Sticks[] sticksTrue, int from, int to)
+        {
+            if(CheckPermutationSticks(sticksResult, from,to))
+            {
+                sticksResult = PermutationSticks(sticksResult, sticksTrue, from, to);
+            }
+            return sticksResult;
+        }
     }
 }
