@@ -329,9 +329,13 @@ namespace ConsoleApp7
             sticksTrue = SortSticks(sticks, sticksTrue, numDisk);
             PrintSticks(sticksTrue);
             Console.WriteLine("length = " + length);
-            sticksResult = sticksTrue[length-1];
-            sticksResult = DeleteDisk(sticksResult,sticksTrue,3);
+            sticksResult.stickOne = sticksTrue[length-1].stickOne;
+            sticksResult.stickTwo = sticks[0].stickTwo;
+            sticksResult.stickThree = sticks[0].stickThree;
+            sticksResult = DeleteDisk(sticksResult,sticksTrue,1);
             sticksResult = AddDisk(sticksResult, sticksTrue, 3);
+            sticksResult = DeleteDisk(sticksResult, sticksTrue, 1);
+            sticksResult = AddDisk(sticksResult, sticksTrue, 2);
             PrintSticks(sticksResult);
             Console.ReadKey();
         }
@@ -491,15 +495,15 @@ namespace ConsoleApp7
             switch (posTrue.lenght)
             {
                 case 1:
-                    if (posTrue.a == posRes.a)
+                    if (posTrue.a > posRes.a)
                         return true;
                     break;
                 case 2:
-                    if (posTrue.b == posRes.b)
+                    if (posTrue.b > posRes.b)
                         return true;
                     break;
                 case 3:
-                    if (posTrue.c == posRes.c)
+                    if (posTrue.c > posRes.c)
                         return true;
                     break;
             }
@@ -517,6 +521,7 @@ namespace ConsoleApp7
                             if (CheckAdd(sticksTrue[i].stickOne, sticksResult.stickOne))
                             {
                                 sticksResult.stickOne = sticksTrue[i].stickOne;
+                                return sticksResult;
                             }
                         }
                         break;
@@ -526,6 +531,7 @@ namespace ConsoleApp7
                             if (CheckAdd(sticksTrue[i].stickTwo, sticksResult.stickTwo))
                             {
                                 sticksResult.stickTwo = sticksTrue[i].stickTwo;
+                                return sticksResult;
                             }
                         }
                         break;
@@ -535,6 +541,7 @@ namespace ConsoleApp7
                             if (CheckAdd(sticksTrue[i].stickThree, sticksResult.stickThree))
                             {
                                 sticksResult.stickThree = sticksTrue[i].stickThree;
+                                return sticksResult;
                             }
                         }
                         break;
