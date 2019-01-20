@@ -19,6 +19,7 @@ namespace ConsoleApp7
             public Pos stickOne;
             public Pos stickTwo;
             public Pos stickThree;
+            public int deleteOrAddDisk;//временное значение, которое нужно для того чтобы понять какой диск мы удалили и какой следует добавить
         }
         static Sticks[] InitSticks(Sticks[] sticks, int length)
         {
@@ -428,6 +429,56 @@ namespace ConsoleApp7
                     return false;
             }
         }
+        static int AddDeleteOrAddDiskNumber(Sticks sticksResult, int numStick)
+        {
+            switch (numStick)
+            {
+                case 1:
+                    switch (sticksResult.stickOne.lenght)
+                    {
+                        case 1:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickOne.a;
+                            break;
+                        case 2:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickOne.b;
+                            break;
+                        case 3:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickOne.c;
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (sticksResult.stickTwo.lenght)
+                    {
+                        case 1:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickTwo.a;
+                            break;
+                        case 2:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickTwo.b;
+                            break;
+                        case 3:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickTwo.c;
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (sticksResult.stickThree.lenght)
+                    {
+                        case 1:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickThree.a;
+                            break;
+                        case 2:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickThree.b;
+                            break;
+                        case 3:
+                            sticksResult.deleteOrAddDisk = sticksResult.stickThree.c;
+                            break;
+                    }
+                    break;
+            }
+        
+            return sticksResult.deleteOrAddDisk;
+        }
         static bool CheckDelete(Pos posTrue, Pos posRes)
         {
             switch(posTrue.lenght)
@@ -458,6 +509,7 @@ namespace ConsoleApp7
                         {
                             if (CheckDelete(sticksTrue[i].stickOne, sticksResult.stickOne))
                             {
+                                sticksResult.deleteOrAddDisk = AddDeleteOrAddDiskNumber(sticksResult, 1);
                                 sticksResult.stickOne = sticksTrue[i].stickOne; 
                             }
                         }
@@ -467,6 +519,7 @@ namespace ConsoleApp7
                         {
                             if (CheckDelete(sticksTrue[i].stickTwo, sticksResult.stickTwo))
                             {
+                                sticksResult.deleteOrAddDisk = AddDeleteOrAddDiskNumber(sticksResult, 2);
                                 sticksResult.stickTwo = sticksTrue[i].stickTwo;
                             }
                         }
@@ -476,6 +529,7 @@ namespace ConsoleApp7
                         {
                             if (CheckDelete(sticksTrue[i].stickThree, sticksResult.stickThree))
                             {
+                                sticksResult.deleteOrAddDisk = AddDeleteOrAddDiskNumber(sticksResult, 3);
                                 sticksResult.stickThree = sticksTrue[i].stickThree;
                             }
                         }
@@ -509,6 +563,27 @@ namespace ConsoleApp7
             }
             return false;
         }
+
+        static bool CheckAddResult(Pos posTrue, Sticks sticksRes)
+        {
+            switch (posTrue.lenght)
+            {
+                case 1:
+                    if (posTrue.a == sticksRes.deleteOrAddDisk)
+                        return true;
+                    break;
+                case 2:
+                    if (posTrue.b == sticksRes.deleteOrAddDisk)
+                        return true;
+                    break;
+                case 3:
+                    if (posTrue.c == sticksRes.deleteOrAddDisk)
+                        return true;
+                    break;
+            }
+            return false;
+        }
+
         static Sticks AddUpDisk(Sticks[] sticksTrue, Sticks sticksResult, int numStick)
         {
             for (int i = 0; i < sticksTrue.Length; i++)
@@ -520,8 +595,11 @@ namespace ConsoleApp7
                         {
                             if (CheckAdd(sticksTrue[i].stickOne, sticksResult.stickOne))
                             {
-                                sticksResult.stickOne = sticksTrue[i].stickOne;
-                                return sticksResult;
+                                if (CheckAddResult(sticksTrue[i].stickOne, sticksResult))
+                                {
+                                    sticksResult.stickOne = sticksTrue[i].stickOne;
+                                    return sticksResult;
+                                }
                             }
                         }
                         break;
@@ -530,8 +608,11 @@ namespace ConsoleApp7
                         {
                             if (CheckAdd(sticksTrue[i].stickTwo, sticksResult.stickTwo))
                             {
-                                sticksResult.stickTwo = sticksTrue[i].stickTwo;
-                                return sticksResult;
+                                if (CheckAddResult(sticksTrue[i].stickTwo, sticksResult))
+                                {
+                                    sticksResult.stickTwo = sticksTrue[i].stickTwo;
+                                    return sticksResult;
+                                }
                             }
                         }
                         break;
@@ -540,8 +621,11 @@ namespace ConsoleApp7
                         {
                             if (CheckAdd(sticksTrue[i].stickThree, sticksResult.stickThree))
                             {
-                                sticksResult.stickThree = sticksTrue[i].stickThree;
-                                return sticksResult;
+                                if (CheckAddResult(sticksTrue[i].stickThree, sticksResult))
+                                {
+                                    sticksResult.stickThree = sticksTrue[i].stickThree;
+                                    return sticksResult;
+                                }
                             }
                         }
                         break;
