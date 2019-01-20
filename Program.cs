@@ -90,6 +90,18 @@ namespace ConsoleApp7
             }
         }
 
+        static void PrintSticks(Sticks sticks)
+        {
+            Console.WriteLine("Result STICKS");
+            Console.Write("Sticks[" + (0) + "]\n{\n");
+            Console.Write("stickOne:abc = " + sticks.stickOne.a + sticks.stickOne.b + sticks.stickOne.c + "\n");
+            Console.Write("stickOne:length = " + sticks.stickOne.lenght + "\n");
+            Console.Write("stickTwo:abc = " + sticks.stickTwo.a + sticks.stickTwo.b + sticks.stickTwo.c + "\n");
+            Console.Write("stickTwo:length = " + sticks.stickTwo.lenght + "\n");
+            Console.Write("stickThree:abc = " + sticks.stickThree.a + sticks.stickThree.b + sticks.stickThree.c + "\n}\n");
+            Console.Write("stickThree:length = " + sticks.stickThree.lenght + "\n");
+        }
+
         static void PrintSticks(Sticks[] sticks)
         {
             Console.Write("PRINT\n");
@@ -317,6 +329,10 @@ namespace ConsoleApp7
             sticksTrue = SortSticks(sticks, sticksTrue, numDisk);
             PrintSticks(sticksTrue);
             Console.WriteLine("length = " + length);
+            sticksResult = sticksTrue[length-1];
+            sticksResult = DeleteDisk(sticksResult,sticksTrue,3);
+            sticksResult = AddDisk(sticksResult, sticksTrue, 3);
+            PrintSticks(sticksResult);
             Console.ReadKey();
         }
 
@@ -408,26 +424,127 @@ namespace ConsoleApp7
                     return false;
             }
         }
-        static Sticks DeleteDisk(Sticks sticksResult,  int from)
+        static bool CheckDelete(Pos posTrue, Pos posRes)
         {
-            switch (from)
+            switch(posTrue.lenght)
             {
-                case 0:
-                    switch(sticksResult.stickOne.lenght)
-                    {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                    }
-                    break;
                 case 1:
+                    if (posTrue.a == posRes.a)
+                        return true;
                     break;
                 case 2:
+                    if (posTrue.b == posRes.b)
+                        return true;
+                    break;
+                case 3:
+                    if (posTrue.c == posRes.c)
+                        return true;
                     break;
             }
+            return false; 
+        }
+        static Sticks DeleteUpDisk(Sticks[] sticksTrue, Sticks sticksResult, int numStick)
+        {
+            for (int i = 0; i < sticksTrue.Length; i++)
+            {
+                switch (numStick)
+                {
+                    case 1:
+                        if (sticksTrue[i].stickOne.lenght == sticksResult.stickOne.lenght-1)
+                        {
+                            if (CheckDelete(sticksTrue[i].stickOne, sticksResult.stickOne))
+                            {
+                                sticksResult.stickOne = sticksTrue[i].stickOne; 
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (sticksTrue[i].stickTwo.lenght == sticksResult.stickTwo.lenght - 1)
+                        {
+                            if (CheckDelete(sticksTrue[i].stickTwo, sticksResult.stickTwo))
+                            {
+                                sticksResult.stickTwo = sticksTrue[i].stickTwo;
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (sticksTrue[i].stickThree.lenght == sticksResult.stickThree.lenght - 1)
+                        {
+                            if (CheckDelete(sticksTrue[i].stickThree, sticksResult.stickThree))
+                            {
+                                sticksResult.stickThree = sticksTrue[i].stickThree;
+                            }
+                        }
+                        break;
+                }
+            }
+            return sticksResult;
+        }
+        static Sticks DeleteDisk(Sticks sticksResult, Sticks[] sticksTrue, int from)
+        {
+            sticksResult = DeleteUpDisk(sticksTrue, sticksResult, from);
+            return sticksResult;
+        }
+
+        static bool CheckAdd(Pos posTrue, Pos posRes)
+        {
+            switch (posTrue.lenght)
+            {
+                case 1:
+                    if (posTrue.a == posRes.a)
+                        return true;
+                    break;
+                case 2:
+                    if (posTrue.b == posRes.b)
+                        return true;
+                    break;
+                case 3:
+                    if (posTrue.c == posRes.c)
+                        return true;
+                    break;
+            }
+            return false;
+        }
+        static Sticks AddUpDisk(Sticks[] sticksTrue, Sticks sticksResult, int numStick)
+        {
+            for (int i = 0; i < sticksTrue.Length; i++)
+            {
+                switch (numStick)
+                {
+                    case 1:
+                        if (sticksTrue[i].stickOne.lenght == sticksResult.stickOne.lenght + 1)
+                        {
+                            if (CheckAdd(sticksTrue[i].stickOne, sticksResult.stickOne))
+                            {
+                                sticksResult.stickOne = sticksTrue[i].stickOne;
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (sticksTrue[i].stickTwo.lenght == sticksResult.stickTwo.lenght + 1)
+                        {
+                            if (CheckAdd(sticksTrue[i].stickTwo, sticksResult.stickTwo))
+                            {
+                                sticksResult.stickTwo = sticksTrue[i].stickTwo;
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (sticksTrue[i].stickThree.lenght == sticksResult.stickThree.lenght + 1)
+                        {
+                            if (CheckAdd(sticksTrue[i].stickThree, sticksResult.stickThree))
+                            {
+                                sticksResult.stickThree = sticksTrue[i].stickThree;
+                            }
+                        }
+                        break;
+                }
+            }
+            return sticksResult;
+        }
+        static Sticks AddDisk(Sticks sticksResult, Sticks[] sticksTrue, int from)
+        {
+            sticksResult = AddUpDisk(sticksTrue, sticksResult, from);
             return sticksResult;
         }
         static Sticks PermutationSticks(Sticks sticksResult, Sticks[] sticksTrue, int from, int to)
