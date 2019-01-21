@@ -40,11 +40,6 @@ begin
                 begin
                     for k := 0 to length do
                     begin
-                    {
-                        sticks[num].stickOne := new Pos();
-                        sticks[num].stickTwo := new Pos();
-                        sticks[num].stickThree := new Pos();
-                                           }
                         sticks[num].stickOne.a := i;
                         sticks[num].stickOne.b := j;
                         sticks[num].stickOne.c := k;
@@ -115,158 +110,140 @@ begin
 end;
 function SortSticks(sticks,sticksTrue:Sticks;length:integer):Sticks;
 var
-
+num1:integer;
+i,j,k:integer;
+num:integer;
 begin
-            int num1 = 0;
-
-            Console.WriteLine("SortSticksLength()\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-            for (int i = 0, num = 0; i < length; i++)
-            {
-                for (int j = 0; j < length; j++)
-                {
-                    for (int k = 0; k < length; k++, num++)
-                    {
-                        //?????? ??????? ???? ?????????
-                        if (sticks[num].stickOne.a == 0 & sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
-                        {
-                            Console.Write("Sticks[" + (num) + "]\n{\n");
-                            Console.Write("stickOne:abc = " + sticks[num].stickOne.a + sticks[num].stickOne.b + sticks[num].stickOne.c + "\n");
-                            Console.Write("stickOne:length = " + sticks[num].stickOne.lenght + "\n");
-                            Console.Write("stickTwo:abc = " + sticks[num].stickTwo.a + sticks[num].stickTwo.b + sticks[num].stickTwo.c + "\n");
-                            Console.Write("stickTwo:length = " + sticks[num].stickTwo.lenght + "\n");
-                            Console.Write("stickThree:abc = " + sticks[num].stickThree.a + sticks[num].stickThree.b + sticks[num].stickThree.c + "\n}\n");
-                            Console.Write("stickThree:length = " + sticks[num].stickThree.lenght + "\n");
-
-                            sticksTrue[num1] = sticks[num];
-                            num1++;
-                        }
-                        else if (sticks[num].stickOne.a > sticks[num].stickOne.b)
-                        {
-                            
-                            //???? ?????? ?????? ?????? ???????, ? ????????? ?????
-                            if (sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
-                            {
-                                Console.Write("Sticks[" + (num) + "]\n{\n");
-                                Console.Write("stickOne:abc = " + sticks[num].stickOne.a + sticks[num].stickOne.b + sticks[num].stickOne.c + "\n");
-                                Console.Write("stickOne:length = " + sticks[num].stickOne.lenght + "\n");
-                                Console.Write("stickTwo:abc = " + sticks[num].stickTwo.a + sticks[num].stickTwo.b + sticks[num].stickTwo.c + "\n");
-                                Console.Write("stickTwo:length = " + sticks[num].stickTwo.lenght + "\n");
-                                Console.Write("stickThree:abc = " + sticks[num].stickThree.a + sticks[num].stickThree.b + sticks[num].stickThree.c + "\n}\n");
-                                Console.Write("stickThree:length = " + sticks[num].stickThree.lenght + "\n");
-
-                                sticksTrue[num1] = sticks[num];
-                                num1++;
-                            }//???? ????????? ??????????? ??? ??????
-                            else if (sticks[num].stickOne.b > sticks[num].stickOne.c)
-                            {
-                                Console.Write("Sticks[" + (num) + "]\n{\n");
-                                Console.Write("stickOne:abc = " + sticks[num].stickOne.a + sticks[num].stickOne.b + sticks[num].stickOne.c + "\n");
-                                Console.Write("stickOne:length = " + sticks[num].stickOne.lenght + "\n");
-                                Console.Write("stickTwo:abc = " + sticks[num].stickTwo.a + sticks[num].stickTwo.b + sticks[num].stickTwo.c + "\n");
-                                Console.Write("stickTwo:length = " + sticks[num].stickTwo.lenght + "\n");
-                                Console.Write("stickThree:abc = " + sticks[num].stickThree.a + sticks[num].stickThree.b + sticks[num].stickThree.c + "\n}\n");
-                                Console.Write("stickThree:length = " + sticks[num].stickThree.lenght + "\n");
-
-                                sticksTrue[num1] = sticks[num];
-                                num1++;
-                            }
-                        }
-                    }
-                }
-            }
-            return sticksTrue;
-        }
+        num1 := 0;
+        num:=0;
+        for i := 0 to length do
+        begin
+                for j := 0 to length do
+                begin
+                        for k := 0 to length do
+                        begin
+                                if ((sticks[num].stickOne.a = 0) and (sticks[num].stickOne.b = 0) and (sticks[num].stickOne.c = 0))then
+                                begin
+                                        sticksTrue[num1] := sticks[num];
+                                        num1 := num1 + 1;
+                                end
+                                else if (sticks[num].stickOne.a > sticks[num].stickOne.b)then
+                                begin
+                                        if ((sticks[num].stickOne.b = 0) and (sticks[num].stickOne.c = 0)) then
+                                        begin
+                                                sticksTrue[num1] := sticks[num];
+                                                num1 := num1 + 1;
+                                        end
+                                        else if (sticks[num].stickOne.b > sticks[num].stickOne.c)then
+                                        begin
+                                                sticksTrue[num1] := sticks[num];
+                                                num1 := num1 + 1;
+                                        end;
+                                end;
+                                num:=num+1;
+                        end;
+                end;
+        end;
+        result:= sticksTrue;
+end;
 
 
-        static void TrueResult(int i, int j, int k, Sticks[] sticksTrue, Sticks sticksResult)
-        {
-            Console.WriteLine("START TRUE RESULT");
-            int max_nodes, node, root, aa, bb, current, ind;
-            char v = ' ', d = ' ';
-            max_nodes = (1 << k) - 1; // ????? ??????.
-            root = 1 << (k - 1); //????? ???????? ???????
-            for (node = 1; node <= max_nodes; node++)
-            {
-                aa = i;
-                bb = j;
+procedure TrueResult(i,j,k:integer;sticksTrue: Sticks;sticksResult: Stick);
+var
+max_nodes, node, root, aa, bb, current, ind:integer;
+v, d:char;
+begin
+        max_nodes := (1 Shl k) - 1; // ????? ??????.
+        root := 1 Shl (k - 1); //????? ???????? ???????
+        for node := 1 to max_nodes do
+        begin
+                aa := i;
+                bb := j;
                 // ????????? ??????? ?????? ???????????? ???????? ???????
-                current = root;
+                current := root;
                 // ????????? ?????? ??????? ??? ???????? ? ?????????? ?????????
-                ind = root / 2;
+                ind := root div 2;
                 // ???????? ????? ?????? ???????
-                while (node != current)
-                {
-                    if (node < current)
-                    {
+                while (node <> current) do
+                begin
+                    if (node < current) then
+                    begin
                         // ??????? ??????? ? ????? ?????????.
-                        bb = 6 - aa - bb;
-                        current = current - ind; // ??????? ? ?????? ?????????
-                    }
+                        bb := 6 - aa - bb;
+                        current := current - ind; // ??????? ? ?????? ?????????
+                    end
                     else
-                    {
+                    begin
                         // ??????? ??????? ? ?????? ?????????
-                        aa = 6 - aa - bb;
-                        current = current + ind; // ??????? ? ??????? ?????????.
-                    }
+                        aa := 6 - aa - bb;
+                        current := current + ind; // ??????? ? ??????? ?????????.
+                    end;
                     // ??????? ? ??????? ?????? ??? ???????? ?
                     // ?????????? ????????? ??????????? ? ??? ????
-                    ind = ind / 2;
-                }
-                switch (aa)
-                {
-                    case 1:
-                        v = 'A';
-                        break;
-                    case
-                        2:
-                        v = 'B';
-                        break;
-                    case
-                        3:
-                        v = 'C';
-                        break;
-                }
-                switch (bb)
-                {
-                    case
+                    ind := ind div 2;
+                end;
+                 case aa of
+    1: v:='A';
+    2: v:='B';
+    3:v:='C';
+    end;
+ case bb of
+    1: d:='A';
+    2: d:='B';
+    3:d:='C';
+    end;
+                case aa of
                         1:
-                        d = 'A';
-                        break;
-                    case
+                        v := 'A';
+
+
                         2:
-                        d = 'B';
-                        break;
-                    case
+                        v := 'B';
+
+
                         3:
-                        d = 'C';
-                        break;
-                }
-                Console.WriteLine("Step = " + node);
-                switch(v)
-                {
-                    case 'A':
-                        sticksResult = DeleteDisk(sticksResult, sticksTrue, 1);
-                        break;
-                    case 'B':
-                        sticksResult = DeleteDisk(sticksResult, sticksTrue, 2);
-                        break;
-                    case 'C':
-                        sticksResult = DeleteDisk(sticksResult, sticksTrue, 3);
-                        break;
-                }
-                switch (d)
-                {
-                    case 'A':
-                        sticksResult = AddDisk(sticksResult, sticksTrue, 1);
-                        break;
-                    case 'B':
-                        sticksResult = AddDisk(sticksResult, sticksTrue, 2);
-                        break;
-                    case 'C':
-                        sticksResult = AddDisk(sticksResult, sticksTrue, 3);
-                        break;
-                }
-                PrintSticks(sticksResult);
+                        v := 'C';
+
+                end;
+                case bb of
+
+
+                        1:
+                        d := 'A';
+
+
+                        2:
+                        d := 'B';
+
+
+                        3:
+                        d := 'C';
+
+                end;
+                case v of
+
+                    'A':
+                        sticksResult := DeleteDisk(sticksResult, sticksTrue, 1);
+
+                    'B':
+                        sticksResult := DeleteDisk(sticksResult, sticksTrue, 2);
+
+                    'C':
+                        sticksResult := DeleteDisk(sticksResult, sticksTrue, 3);
+
+                end;
+                case d of
+
+                    'A':
+                        sticksResult := AddDisk(sticksResult, sticksTrue, 1);
+
+                    'B':
+                        sticksResult := AddDisk(sticksResult, sticksTrue, 2);
+
+                    'C':
+                        sticksResult := AddDisk(sticksResult, sticksTrue, 3);
+
+                end;
             }
         }
         static void Main(string[] args)
