@@ -129,7 +129,19 @@ namespace ConsoleApp7
                 {
                     for (int k = 0; k < length; k++, num++)
                     {
-                        if (sticks[num].stickOne.a > sticks[num].stickOne.b)
+                        if (sticks[num].stickOne.a == 0 & sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
+                        {
+                            Console.Write("Sticks[" + (num) + "]\n{\n");
+                            Console.Write("stickOne:abc = " + sticks[num].stickOne.a + sticks[num].stickOne.b + sticks[num].stickOne.c + "\n");
+                            Console.Write("stickOne:length = " + sticks[num].stickOne.lenght + "\n");
+                            Console.Write("stickTwo:abc = " + sticks[num].stickTwo.a + sticks[num].stickTwo.b + sticks[num].stickTwo.c + "\n");
+                            Console.Write("stickTwo:length = " + sticks[num].stickTwo.lenght + "\n");
+                            Console.Write("stickThree:abc = " + sticks[num].stickThree.a + sticks[num].stickThree.b + sticks[num].stickThree.c + "\n}\n");
+                            Console.Write("stickThree:length = " + sticks[num].stickThree.lenght + "\n");
+
+                            lengthNewArray++;
+                        }
+                        else if (sticks[num].stickOne.a > sticks[num].stickOne.b)
                         {
                             //если занята только первая позиция, а остальные пусты
                             if (sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
@@ -174,8 +186,23 @@ namespace ConsoleApp7
                 {
                     for (int k = 0; k < length; k++, num++)
                     {
-                        if (sticks[num].stickOne.a > sticks[num].stickOne.b)
+                        //пустой столбик тоже считается
+                        if (sticks[num].stickOne.a == 0 & sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
                         {
+                            Console.Write("Sticks[" + (num) + "]\n{\n");
+                            Console.Write("stickOne:abc = " + sticks[num].stickOne.a + sticks[num].stickOne.b + sticks[num].stickOne.c + "\n");
+                            Console.Write("stickOne:length = " + sticks[num].stickOne.lenght + "\n");
+                            Console.Write("stickTwo:abc = " + sticks[num].stickTwo.a + sticks[num].stickTwo.b + sticks[num].stickTwo.c + "\n");
+                            Console.Write("stickTwo:length = " + sticks[num].stickTwo.lenght + "\n");
+                            Console.Write("stickThree:abc = " + sticks[num].stickThree.a + sticks[num].stickThree.b + sticks[num].stickThree.c + "\n}\n");
+                            Console.Write("stickThree:length = " + sticks[num].stickThree.lenght + "\n");
+
+                            sticksTrue[num1] = sticks[num];
+                            num1++;
+                        }
+                        else if (sticks[num].stickOne.a > sticks[num].stickOne.b)
+                        {
+                            
                             //если занята только первая позиция, а остальные пусты
                             if (sticks[num].stickOne.b == 0 & sticks[num].stickOne.c == 0)
                             {
@@ -211,12 +238,13 @@ namespace ConsoleApp7
         }
 
 
-        static void TrueResult(int i, int j, int k, int a, int b, int c)
+        static void TrueResult(int i, int j, int k, Sticks[] sticksTrue, Sticks sticksResult)
         {
+            Console.WriteLine("START TRUE RESULT");
             int max_nodes, node, root, aa, bb, current, ind;
-            char v, d;
-            max_nodes = 1 << k - 1; // Всего вершин.
-            root = 1 << k - 1; //Номер корневой вершины
+            char v = ' ', d = ' ';
+            max_nodes = (1 << k) - 1; // Всего вершин.
+            root = 1 << (k - 1); //Номер корневой вершины
             for (node = 1; node <= max_nodes; node++)
             {
                 aa = i;
@@ -273,44 +301,32 @@ namespace ConsoleApp7
                         d = 'C';
                         break;
                 }
-
-                switch (bb)
+                Console.WriteLine("Step = " + node);
+                switch(v)
                 {
-                    case
-                        1:
-                        a = a - 1;
+                    case 'A':
+                        sticksResult = DeleteDisk(sticksResult, sticksTrue, 1);
                         break;
-                    case
-                        2:
-                        b = b - 1;
+                    case 'B':
+                        sticksResult = DeleteDisk(sticksResult, sticksTrue, 2);
                         break;
-                    case
-                        3:
-                        c = c - 1;
+                    case 'C':
+                        sticksResult = DeleteDisk(sticksResult, sticksTrue, 3);
                         break;
                 }
-                switch (bb)
-
+                switch (d)
                 {
-                    case
-                        1:
-                        a = a + 1;
+                    case 'A':
+                        sticksResult = AddDisk(sticksResult, sticksTrue, 1);
                         break;
-                    case
-                        2:
-                        b = b + 1;
+                    case 'B':
+                        sticksResult = AddDisk(sticksResult, sticksTrue, 2);
                         break;
-                    case
-                        3:
-                        c = c + 1;
+                    case 'C':
+                        sticksResult = AddDisk(sticksResult, sticksTrue, 3);
                         break;
                 }
-
-                //mas[1, node]:= aa; mas[2, node]:= bb;
-                //Unit1.Form1.SG.RowCount:= Unit1.Form1.SG.RowCount + 1;
-                //Unit1.Form1.SG.Cells[0, node] := IntToStr(node) + '. Перенести с ' + v + ' на ' + d + '(' + IntToStr(a) + IntToStr(b) + IntToStr(c) + ')';
-                //end;
-                //num:= node - 1;
+                PrintSticks(sticksResult);
             }
         }
         static void Main(string[] args)
@@ -324,7 +340,7 @@ namespace ConsoleApp7
             Sticks sticksResult = new Sticks();
             Console.BufferHeight = 2550;
             Console.BufferWidth = 255;
-            PrintSticks(sticks, numDisk);
+            //PrintSticks(sticks, numDisk);
             length = SortSticksLength(sticks, numDisk);
             sticksTrue = new Sticks[length];
             sticksTrue = SortSticks(sticks, sticksTrue, numDisk);
@@ -333,11 +349,8 @@ namespace ConsoleApp7
             sticksResult.stickOne = sticksTrue[length-1].stickOne;
             sticksResult.stickTwo = sticks[0].stickTwo;
             sticksResult.stickThree = sticks[0].stickThree;
-            sticksResult = DeleteDisk(sticksResult,sticksTrue,1);
-            sticksResult = AddDisk(sticksResult, sticksTrue, 3);
-            sticksResult = DeleteDisk(sticksResult, sticksTrue, 1);
-            sticksResult = AddDisk(sticksResult, sticksTrue, 2);
-            PrintSticks(sticksResult);
+            Console.Clear();
+            TrueResult(1,3, 3, sticksTrue,sticksResult);
             Console.ReadKey();
         }
 
@@ -483,6 +496,10 @@ namespace ConsoleApp7
         {
             switch(posTrue.lenght)
             {
+                case 0:
+                    //if(posTrue.a == posRes.a)
+                        return true;
+                    break;
                 case 1:
                     if (posTrue.a == posRes.a)
                         return true;
@@ -548,6 +565,10 @@ namespace ConsoleApp7
         {
             switch (posTrue.lenght)
             {
+                case 0:
+                    if (posTrue.a > posRes.a)
+                        return true;
+                    break;
                 case 1:
                     if (posTrue.a > posRes.a)
                         return true;
