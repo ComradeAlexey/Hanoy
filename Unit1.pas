@@ -245,61 +245,61 @@ begin
                         sticksResult := AddDisk(sticksResult, sticksTrue, 3);
 
                 end;
-            }
-        }
+            end;
+        end;
 
 
 
-        static int AddDeleteOrAddDiskNumber(Sticks sticksResult, int numStick)
-        {
-            switch (numStick)
-            {
-                case 1:
-                    switch (sticksResult.stickOne.lenght)
-                    {
-                        case 1:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickOne.a;
-                            break;
-                        case 2:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickOne.b;
-                            break;
-                        case 3:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickOne.c;
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (sticksResult.stickTwo.lenght)
-                    {
-                        case 1:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickTwo.a;
-                            break;
-                        case 2:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickTwo.b;
-                            break;
-                        case 3:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickTwo.c;
-                            break;
-                    }
-                    break;
-                case 3:
-                    switch (sticksResult.stickThree.lenght)
-                    {
-                        case 1:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickThree.a;
-                            break;
-                        case 2:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickThree.b;
-                            break;
-                        case 3:
-                            sticksResult.deleteOrAddDisk = sticksResult.stickThree.c;
-                            break;
-                    }
-                    break;
-            }
-        
-            return sticksResult.deleteOrAddDisk;
-        }
+        function AddDeleteOrAddDiskNumber(sticksResult:Stick;numStick:integer):integer;
+        begin
+            case numStick of
+
+                1:
+                    case (sticksResult.stickOne.lenght) of
+
+                         1:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickOne.a;
+
+                        2:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickOne.b;
+
+                        3:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickOne.c;
+
+                    end;
+
+                2:
+                    case (sticksResult.stickTwo.lenght) of
+
+                        1:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickTwo.a;
+
+                        2:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickTwo.b;
+
+                        3:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickTwo.c;
+
+                    end;
+
+                3:
+                    case(sticksResult.stickThree.lenght) of
+
+                        1:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickThree.a;
+
+                        2:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickThree.b;
+
+                        3:
+                            sticksResult.deleteOrAddDisk := sticksResult.stickThree.c;
+
+                    end;
+
+            end;
+
+            result:= sticksResult.deleteOrAddDisk;
+        end;
         static bool CheckDelete(Pos posTrue, Pos posRes)
         {
             switch(posTrue.lenght)
