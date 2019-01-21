@@ -16,6 +16,7 @@ end;
 type
   TForm1 = class(TForm)
     TreeView1: TTreeView;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -246,119 +247,9 @@ begin
                 end;
             }
         }
-        static void Main(string[] args)
-        {
-            int numDisk = 4;
-            int a, b, c;
-            int length;
-            Sticks[] sticks = new Sticks[(int)Math.Pow(numDisk, numDisk)];
-            sticks = InitSticks(sticks, numDisk);
-            Sticks[] sticksTrue;
-            Sticks sticksResult = new Sticks();
-            Console.BufferHeight = 2550;
-            Console.BufferWidth = 255;
-            //PrintSticks(sticks, numDisk);
-            length = SortSticksLength(sticks, numDisk);
-            sticksTrue = new Sticks[length];
-            sticksTrue = SortSticks(sticks, sticksTrue, numDisk);
-            PrintSticks(sticksTrue);
-            Console.WriteLine("length = " + length);
-            sticksResult.stickOne = sticksTrue[length-1].stickOne;
-            sticksResult.stickTwo = sticks[0].stickTwo;
-            sticksResult.stickThree = sticks[0].stickThree;
-            Console.Clear();
-            TrueResult(1,3, 3, sticksTrue,sticksResult);
-            Console.ReadKey();
-        }
 
-        static bool CheckPermutation(Pos from, Pos to)
-        {
-            char fromInPos;
-            char toInPos;
 
-            if (from.c != 0)
-            {
-                fromInPos = 'c';
-            }
-            else if (from.b != 0)
-            {
-                fromInPos = 'b';
-            }
-            else if (from.a != 0)
-            {
-                fromInPos = 'a';
-            }
-            else
-            {
-                fromInPos = '0';
-            }
 
-            if (to.c != 0)
-            {
-                toInPos = 'c';
-            }
-            else if (to.b != 0)
-            {
-                toInPos = 'b';
-            }
-            else if (to.a != 0)
-            {
-                toInPos = 'a';
-            }
-            else
-            {
-                toInPos = '0';
-            }
-
-            if (fromInPos < toInPos)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        //???????? ????? ? ????? ????? ?? ?????? ?????
-        //???? ???? ?????? ??? ??????? ???? ?? ??????? ????? ?? ???? ????????? ????????? ?????, ????? ????????????
-        static bool CheckPermutationSticks(Sticks sticks, int from, int to)
-        {
-            switch (from)
-            {
-                case 0:
-                    switch (to)
-                    {
-                        case 1:
-                            return CheckPermutation(sticks.stickOne, sticks.stickTwo);
-                        case 2:
-                            return CheckPermutation(sticks.stickOne, sticks.stickThree);
-                        default:
-                            return false;
-                    }
-                case 1:
-                    switch (to)
-                    {
-                        case 0:
-                            return CheckPermutation(sticks.stickTwo, sticks.stickOne);
-                        case 2:
-                            return CheckPermutation(sticks.stickTwo, sticks.stickThree);
-                        default:
-                            return false;
-                    }
-                case 2:
-                    switch (to)
-                    {
-                        case 0:
-                            return CheckPermutation(sticks.stickThree, sticks.stickOne);
-                        case 1:
-                            return CheckPermutation(sticks.stickThree, sticks.stickTwo);
-                        default:
-                            return false;
-                    }
-                default:
-                    return false;
-            }
-        }
         static int AddDeleteOrAddDiskNumber(Sticks sticksResult, int numStick)
         {
             switch (numStick)
@@ -576,48 +467,31 @@ begin
             sticksResult = AddUpDisk(sticksTrue, sticksResult, from);
             return sticksResult;
         }
-        static Sticks PermutationSticks(Sticks sticksResult, Sticks[] sticksTrue, int from, int to)
-        {
-            switch (from)
-            {
-                case 0:
-                    switch (to)
-                    {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                    }
-                    break;
-                case 1:
-                    switch (to)
-                    {
-                        case 0:
-                            break;
-                        case 2:
-                            break;
-                    }
-                    break;
-                case 2:
-                    switch (to)
-                    {
-                        case 0:
-                            break;
-                        case 1:
-                            break;
-                    }
-                    break;
-            }
-            return sticksResult;
-        }
-        static Sticks PermutationSticksResult(Sticks sticksResult, Sticks[] sticksTrue, int from, int to)
-        {
-            if(CheckPermutationSticks(sticksResult, from,to))
-            {
-                sticksResult = PermutationSticks(sticksResult, sticksTrue, from, to);
-            }
-            return sticksResult;
-        }
     }
 }
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+int numDisk = 4;
+            int a, b, c;
+            int length;
+            Sticks[] sticks = new Sticks[(int)Math.Pow(numDisk, numDisk)];
+            sticks = InitSticks(sticks, numDisk);
+            Sticks[] sticksTrue;
+            Sticks sticksResult = new Sticks();
+            Console.BufferHeight = 2550;
+            Console.BufferWidth = 255;
+            //PrintSticks(sticks, numDisk);
+            length = SortSticksLength(sticks, numDisk);
+            sticksTrue = new Sticks[length];
+            sticksTrue = SortSticks(sticks, sticksTrue, numDisk);
+            PrintSticks(sticksTrue);
+            Console.WriteLine("length = " + length);
+            sticksResult.stickOne = sticksTrue[length-1].stickOne;
+            sticksResult.stickTwo = sticks[0].stickTwo;
+            sticksResult.stickThree = sticks[0].stickThree;
+            Console.Clear();
+            TrueResult(1,3, 3, sticksTrue,sticksResult);
+            Console.ReadKey();
+end;
+
 end.
